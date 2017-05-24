@@ -37,7 +37,7 @@ module GoldenFleece
     end
 
     def []=(subschema_name, subschema_definition)
-      subschemas[subschema_name] = Schema.new(context, config_path(path, subschema_name), subschema_definition)
+      subschemas[subschema_name] = Schema.new(context, json_path(path, subschema_name), subschema_definition)
     end
 
     def each(&block)
@@ -107,7 +107,7 @@ module GoldenFleece
         raise ArgumentError.new("'subschemas' option can only be set for 'object' type schemas, attempted to provide subschemas for #{error_suffix(attribute, json_path)}") unless types.include? Definitions::TYPES[:object]
         raise ArgumentError.new("The 'subschemas' option must be passed a hash, please check #{error_suffix(attribute, json_path)}") unless subschema_definition.is_a?(Hash)
 
-        subschema_path = config_path(path, subschema_name)
+        subschema_path = json_path(path, subschema_name)
         memo[subschema_name] = Schema.new(context, subschema_path, subschema_definition)
         memo
       } if subschema_definitions.present?

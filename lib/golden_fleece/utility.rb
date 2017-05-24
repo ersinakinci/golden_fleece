@@ -1,7 +1,7 @@
 module GoldenFleece
   module Utility
-    def config_path(parent_path, config_name)
-      "#{parent_path}#{'/' unless parent_path =~ /\/$/}#{config_name}"
+    def json_path(parent_path, key_name)
+      "#{parent_path}#{'/' unless parent_path =~ /\/$/}#{key_name}"
     end
 
     def error_suffix(attribute, path)

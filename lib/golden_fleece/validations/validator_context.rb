@@ -23,7 +23,7 @@ module GoldenFleece
 
     def validate
       validatable_keys.each do |key|
-        path = config_path(parent_path, key)
+        path = json_path(parent_path, key)
 
         validate_key key, path
 
@@ -48,12 +48,12 @@ module GoldenFleece
     attr_reader :persisted_json, :schemas, :parent_path, :validatable_keys, :record, :attribute, :errors
 
     def validate_key(key, path)
-      errors << "Invalid config key #{error_suffix(attribute, path)}" unless schemas.keys.include? key
+      errors << "Invalid key #{error_suffix(attribute, path)}" unless schemas.keys.include? key
     end
 
     def validate_type(value, valid_types, path)
       unless valid_types.any? { |valid_type| valid_type.matches? value }
-        errors << "Invalid config type at #{error_suffix(attribute, path)}, must be one of #{valid_types}"
+        errors << "Invalid type at #{error_suffix(attribute, path)}, must be one of #{valid_types}"
       end
     end
 
@@ -62,7 +62,7 @@ module GoldenFleece
         begin
           valid_format.validate record, value
         rescue Exception => e
-          errors << "Invalid config format at #{error_suffix(attribute, path)}: #{e.message}"
+          errors << "Invalid format at #{error_suffix(attribute, path)}: #{e.message}"
         end
       end
     end
