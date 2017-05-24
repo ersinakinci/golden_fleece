@@ -48,7 +48,7 @@ person.valid? # false
 
 ### Schemas
 
-Golden Fleece's core concept is the schema. A schema is a structure that defines what your JSON columns should look like:
+Golden Fleece's core concept is the schema. A schema is a structure that defines what your JSON columns should look like and are defined within the `fleece` block on a model using `define_schemas`:
 
 ```ruby
 class Person < ActiveRecord::Base
@@ -64,7 +64,7 @@ class Person < ActiveRecord::Base
 end
 ```
 
-Schemas are defined within the `fleece` block on a model using `define_schemas`. The above example defines a schema on the `Person` model's `profile` column and introduces certain restraints on the `first_name`, `last_name` and `zip_code` fields within the `profile` column's JSON object. Note that Golden Fleece assumes that all columns with a schema are valid JSON objects.
+The above example defines a schema on the `Person` model's `profile` column and introduces certain restraints on the `first_name`, `last_name` and `zip_code` fields within the `profile` column's JSON object. Note that Golden Fleece assumes that all columns with a schema are valid JSON objects.
 
 Note that any keys added to a JSON object that aren't listed in the schema are invalid:
 
@@ -109,7 +109,7 @@ person.export_fleece       # { profile: { zip_code: '90210' } }
 person.profile['zip_code'] # nil
 ```
 
-In addition to static values, you can use lambdas to dynamically generate defaults at runtime:
+In addition to static values, you can use Proc's to dynamically generate defaults at runtime:
 
 ```ruby
 define_schemas :profile, {
@@ -141,7 +141,7 @@ Note that getters will return the exported value of your JSON key rather than th
 
 ### Normalizers
 
-Normalizers are lambdas that normalize your data before validating, exporting or saving:
+Normalizers are Procs that normalize your data before validating, exporting or saving:
 
 ```ruby
 define_normalizers({
@@ -180,7 +180,7 @@ person.zip_code            # '2b02dbc1030b278245b2b9cb11667eebf7275a52'
 
 ### Formats
 
-Formats are lambdas that can be used to enforce complex validations:
+Formats are Procs that can be used to enforce complex validations:
 
 ```ruby
 define_formats({
@@ -218,11 +218,19 @@ person.address            # { number: nil, street: nil, zip_code: '90210' }
 person.valid?             # false
 ```
 
+### Exporting
+
+TODO
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+### Using Golden Fleece with other ORM's
+
+TODO
 
 ## Contributing
 
