@@ -36,11 +36,11 @@ module GoldenFleece
           validate_format(value, schema.format, path)
 
           # If the key's value is a nested JSON object, recurse down
-          ValidatorContext.new(record, attribute, persisted_json&.[](key.to_s), schemas[key], path).validate if value.is_a?(Hash)
+          errors << ValidatorContext.new(record, attribute, persisted_json&.[](key.to_s), schemas[key], path).validate if value.is_a?(Hash)
         end
       end
 
-      errors
+      errors.flatten
     end
 
     private
