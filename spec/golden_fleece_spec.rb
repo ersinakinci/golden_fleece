@@ -5,7 +5,6 @@ require "golden_fleece/schema"
 
 RSpec.describe GoldenFleece do
   class MockModel
-    include ::ActiveModel::Model
     include ::ActiveModel::AttributeMethods
     include ::ActiveModel::Dirty
     include ::ActiveModel::Validations
@@ -13,7 +12,10 @@ RSpec.describe GoldenFleece do
 
     attr_reader :errors
 
-    define_attribute_methods :settings
+    # ActiveModel >= 4.0
+    # define_attribute_methods :settings
+    # ActiveModel ~> 3.0
+    define_attribute_methods [:settings]
     define_model_callbacks :save
 
     def initialize
@@ -40,7 +42,11 @@ RSpec.describe GoldenFleece do
 
     def save
       run_callbacks :save do
-        changes_applied
+        # ActiveModel >= 4.0
+        # changes_applied
+        # ActiveModel ~> 3.0
+        @previously_changed = changes
+        @changed_attributes.clear
       end
     end
 
@@ -53,9 +59,13 @@ RSpec.describe GoldenFleece do
       end
 
       # Reset validate and save callbacks
-      __callbacks.each do |_, cb_chain|
-        cb_chain.clear
-      end
+      # ActiveModel >= 5.0
+      # __callbacks.each do |_, cb|
+      #   cb.clear
+      # end
+      # ActiveModel < 5.0
+      self.reset_callbacks :validate
+      self.reset_callbacks :save
 
       # Reload Golden Fleece
       include GoldenFleece::Model
@@ -214,7 +224,7 @@ RSpec.describe GoldenFleece do
     }
 
     expect(model.valid?).to eq true
-    expect(model.errors.messages[:settings].count).to eq 0
+    expect(model.errors.messages[:settings]).to be_nil
   end
 
   it 'validates arrays (success)' do
@@ -230,7 +240,7 @@ RSpec.describe GoldenFleece do
     }
 
     expect(model.valid?).to eq true
-    expect(model.errors.messages[:settings].count).to eq 0
+    expect(model.errors.messages[:settings]).to be_nil
   end
 
   it 'validates arrays (failure)' do
