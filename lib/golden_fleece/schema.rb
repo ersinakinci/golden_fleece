@@ -12,7 +12,7 @@ module GoldenFleece
       @context = context
       @path = path
       @name = path.split("/").last
-      @attribute = path.split("/").second
+      @attribute = path.split("/")[1]
       @json_path = path.split("/")[2..-1]&.join("/")
       @subschemas = {}
 
