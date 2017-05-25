@@ -3,6 +3,8 @@ require 'hana'
 
 module GoldenFleece
   class Value
+    include Utility
+    
     def initialize(schema)
       @schema = schema
       self.value_initialized = false
@@ -36,7 +38,7 @@ module GoldenFleece
     # Cast boolean values the way that Rails normally does on boolean columns
     def cast_booleans
       if schema.types.include? Definitions::TYPES[:boolean]
-        @value = ActiveRecord::Type::Boolean.new.type_cast_from_user(value)
+        @value = cast_boolean(value)
       end
     end
 
