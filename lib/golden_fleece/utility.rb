@@ -19,5 +19,12 @@ module GoldenFleece
         !FALSE_VALUES.include?(value)
       end
     end
+
+    def deep_stringify_keys(hash)
+      hash.reduce({}) { |memo, (key, value)|
+        memo[key.to_s] = value.is_a?(Hash) ? deep_stringify_keys(value) : value
+        memo
+      }
+    end
   end
 end
