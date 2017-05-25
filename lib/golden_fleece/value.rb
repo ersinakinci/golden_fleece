@@ -43,7 +43,7 @@ module GoldenFleece
     end
 
     def apply_normalizers
-      @value = schema.normalizers.reduce(value) { |memo, normalizer| normalizer.call record, memo }
+      @value = schema.normalizers.reduce(value) { |memo, normalizer| normalizer.normalize record, memo }
     end
 
     # If there's a persisted value, use that

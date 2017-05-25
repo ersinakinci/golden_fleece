@@ -14,7 +14,7 @@ module GoldenFleece
       @schemas = schemas
       @parent_path = parent_path
       persisted_keys = persisted_json&.keys&.map(&:to_sym) || []
-      schemas_keys = schemas.keys
+      schemas_keys = schemas&.keys || []
       @validatable_keys = (persisted_keys + schemas_keys).uniq
       @record = record
       @attribute = attribute
