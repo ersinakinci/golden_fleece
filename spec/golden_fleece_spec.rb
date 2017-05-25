@@ -177,7 +177,7 @@ RSpec.describe GoldenFleece do
     expect(model.errors.messages[:settings][0]).to include "Invalid format"
   end
 
-  it 'validates nested subconfigs (failure)' do
+  it 'validates nested subschemas (failure)' do
     MockModel.fleece {
       define_schemas :settings, {
         location: { type: :object, subschemas: {
@@ -195,7 +195,7 @@ RSpec.describe GoldenFleece do
     expect(model.errors.messages[:settings][0]).to include "Invalid type"
   end
 
-  it 'validates nested subconfigs (success)' do
+  it 'validates nested subschemas (success)' do
     MockModel.fleece {
       define_schemas :settings, {
         location: { type: :object, subschemas: {
@@ -245,7 +245,7 @@ RSpec.describe GoldenFleece do
     expect(model.errors.messages[:settings][0]).to include "Invalid type"
   end
 
-  it 'exports configs' do
+  it 'exports fleece' do
     MockModel.fleece do
       define_schemas :settings, {
         first_name: { type: :string },
