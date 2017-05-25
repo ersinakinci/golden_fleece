@@ -33,8 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.14"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "activemodel", ">= 3.0"
-  spec.add_development_dependency "activesupport", ">= 3.0"
-  spec.add_development_dependency "pry",  ">= 0.9.12"
+  spec.add_development_dependency "activemodel", "~> 3.0"
+  spec.add_development_dependency "activesupport", "~> 3.0"
+  spec.add_development_dependency "pry",  "~> 0.9"
   spec.add_dependency "hana", "~> 1.3"
 end
