@@ -1,6 +1,6 @@
 # Golden Fleece 🐑
 
-Easy schemas for JSON columns in your Ruby data models. Currently supports ActiveRecord.
+Easy schemas for JSON columns in your Ruby data models. Currently supports ActiveRecord/ActiveModel >= 3.0 (i.e., Rails 3, 4 and 5).
 
 Golden Fleece lets you define a schema for your Ruby data models, which can be used to do fun things:
 
