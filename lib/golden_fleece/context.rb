@@ -14,7 +14,7 @@ module GoldenFleece
     include ::GoldenFleece::Context::Schemas
 
     attr_accessor :rules
-    attr_reader :model_class, :normalizers, :formats, :attributes, :schemas, :setup_callbacks
+    attr_reader :model_class, :normalizers, :formats, :attributes, :schemas, :setup_callbacks, :has_run_setup
 
     def initialize(model_class)
       @model_class = model_class
@@ -23,12 +23,15 @@ module GoldenFleece
       @attributes = []
       @schemas = Schema.new(self, '/', {})
       @setup_callbacks = []
+      @has_run_setup = false
     end
 
     def run_setup_callbacks
       @setup_callbacks.each do |cb|
         cb.call self
       end
+
+      @has_run_setup = true
     end
   end
 end

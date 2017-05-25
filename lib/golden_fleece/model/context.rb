@@ -1,5 +1,4 @@
 require 'golden_fleece/context'
-require 'pry'
 
 module GoldenFleece
   module Model
@@ -17,7 +16,7 @@ module GoldenFleece
 
         def fleece(&block)
           fleece_context.instance_eval(&block)
-          fleece_context.run_setup_callbacks
+          fleece_context.run_setup_callbacks unless fleece_context.has_run_setup
         end
       end
     end
