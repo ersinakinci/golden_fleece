@@ -1,3 +1,4 @@
+require 'active_model'
 require 'golden_fleece/validations/active_model/fleece_schema_conformance_validator'
 
 module GoldenFleece

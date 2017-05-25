@@ -1,3 +1,4 @@
+require 'active_model'
 require 'golden_fleece/validations/validator_context'
 
 module GoldenFleece
