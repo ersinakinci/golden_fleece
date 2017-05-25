@@ -1,5 +1,6 @@
 require "golden_fleece/model/context"
 require "golden_fleece/model/export"
+require "golden_fleece/model/normalization"
 require "golden_fleece/model/active_model/normalization"
 require "golden_fleece/model/active_model/validation"
 
@@ -15,6 +16,7 @@ module GoldenFleece
       base.class_eval do
         include GoldenFleece::Model::Context
         include GoldenFleece::Model::Export
+        include GoldenFleece::Model::Normalization
         include orm_module::Normalization
         include orm_module::Validation
       end

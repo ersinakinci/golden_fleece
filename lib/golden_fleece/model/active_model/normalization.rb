@@ -1,3 +1,5 @@
+require 'active_model'
+
 module GoldenFleece
   module Model
     module ActiveModel
@@ -5,7 +7,7 @@ module GoldenFleece
         def self.included(base)
           base.class_eval do
             before_save do
-              fleece_context.normalize_fleece
+              normalize_fleece
             end
           end
         end
