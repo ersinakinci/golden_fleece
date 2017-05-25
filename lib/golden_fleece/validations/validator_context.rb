@@ -23,7 +23,7 @@ module GoldenFleece
 
     def validate
       validatable_keys.each do |key|
-        path = json_path(parent_path, key)
+        path = build_json_path(parent_path, key)
 
         validate_key key, path
 

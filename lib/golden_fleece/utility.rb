@@ -1,6 +1,6 @@
 module GoldenFleece
   module Utility
-    def json_path(parent_path, key_name)
+    def build_json_path(parent_path, key_name)
       "#{parent_path}#{'/' unless parent_path =~ /\/$/}#{key_name}"
     end
 
