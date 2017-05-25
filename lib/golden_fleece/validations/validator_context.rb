@@ -13,8 +13,12 @@ module GoldenFleece
       @persisted_json = persisted_json
       @schemas = schemas
       @parent_path = parent_path
-      persisted_keys = persisted_json&.keys&.map(&:to_sym) || []
-      schemas_keys = schemas&.keys || []
+      persisted_keys = if persisted_json && persisted_json.keys
+        persisted_json.keys.map(&:to_sym)
+      else
+        []
+      end
+      schemas_keys = schemas ? schemas.keys : []
       @validatable_keys = (persisted_keys + schemas_keys).uniq
       @record = record
       @attribute = attribute
@@ -36,7 +40,7 @@ module GoldenFleece
           validate_format(value, schema.format, path)
 
           # If the key's value is a nested JSON object, recurse down
-          errors << ValidatorContext.new(record, attribute, persisted_json&.[](key.to_s), schemas[key], path).validate if value.is_a?(Hash)
+          errors << ValidatorContext.new(record, attribute, (persisted_json ? persisted_json[key.to_s] : nil), schemas[key], path).validate if value.is_a?(Hash)
         end
       end
 

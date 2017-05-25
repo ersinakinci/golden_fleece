@@ -13,7 +13,8 @@ module GoldenFleece
       @path = path
       @name = path.split("/").last
       @attribute = path.split("/")[1]
-      @json_path = path.split("/")[2..-1]&.join("/")
+      @json_path = path.split("/")[2..-1]
+      @json_path = @json_path.join("/") if @json_path
       @subschemas = {}
 
       # .count == 1 means we're at the root
