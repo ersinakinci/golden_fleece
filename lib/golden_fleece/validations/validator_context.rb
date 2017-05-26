@@ -29,10 +29,7 @@ module GoldenFleece
       validatable_keys.each do |key|
         path = build_json_path(parent_path, key)
 
-        validate_key key, path
-
-        # If all keys on our current level are valid, proceed
-        if errors.empty?
+        if validate_key key, path
           schema = schemas[key]
           value = schema.value.compute(record)
 
@@ -52,7 +49,12 @@ module GoldenFleece
     attr_reader :persisted_json, :schemas, :parent_path, :validatable_keys, :record, :attribute, :errors
 
     def validate_key(key, path)
-      errors << "Invalid key #{error_suffix(attribute, path)}" unless schemas.keys.include? key
+      if schemas.keys.include? key
+        true
+      else
+        errors << "Invalid key #{error_suffix(attribute, path)}"
+        false
+      end
     end
 
     def validate_type(value, valid_types, path)
