@@ -13,7 +13,7 @@ module GoldenFleece
     # Copied from ActiveModel::Type::Boolean
     # https://github.com/rails/rails/blob/master/activemodel/lib/active_model/type/boolean.rb
     def cast_boolean(value)
-      if value == ""
+      if value == "" || value == nil
         nil
       else
         !FALSE_VALUES.include?(value)

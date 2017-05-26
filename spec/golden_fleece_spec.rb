@@ -288,6 +288,8 @@ RSpec.describe GoldenFleece do
         sad?: { type: :boolean },
         real_happy?: { type: :boolean },
         real_sad?: { type: :boolean },
+        other_feel: { type: :boolean },
+        other_feel_default: { type: :boolean, default: false }
       }
       define_getters :settings
     end
@@ -300,15 +302,19 @@ RSpec.describe GoldenFleece do
     }
     model.save
 
-    expect(model.valid?).to eq(true)
+    expect(model.valid?).to eq(false)
     expect(model.happy?).to eq(true)
     expect(model.sad?).to eq(false)
     expect(model.real_happy?).to eq(true)
     expect(model.real_sad?).to eq(false)
+    expect(model.other_feel).to eq(nil)
+    expect(model.other_feel_default).to eq(false)
     expect(model.settings['happy?']).to eq(true)
     expect(model.settings['sad?']).to eq(false)
     expect(model.settings['real_happy?']).to eq(true)
     expect(model.settings['real_sad?']).to eq(false)
+    expect(model.settings['other_feel']).to eq(nil)
+    expect(model.settings['other_feel_default']).to eq(false)
   end
 
   it 'normalizes values using normalizer (single)' do
