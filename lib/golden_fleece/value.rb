@@ -4,7 +4,7 @@ require 'hana'
 module GoldenFleece
   class Value
     include Utility
-    
+
     def initialize(schema)
       @schema = schema
       self.value_initialized = false
