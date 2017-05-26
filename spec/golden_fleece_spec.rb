@@ -337,4 +337,39 @@ RSpec.describe GoldenFleece do
     expect(model.settings['important_ids']).to be_an Array
     expect(model.settings['important_ids']).to eq([1000, 1001, 1002])
   end
+
+  it 'allows defining and redefining schemas individually' do
+    MockModel.fleece do
+      define_schemas :settings, {
+        first_name: { type: :string, default: "Default first name" },
+        last_name: { type: :string },
+        location: { type: :object, subschemas: {
+          zip_code: { type: :string },
+          address: { type: :string }
+        } }
+      }
+    end
+
+    # Define new schema
+    MockModel.fleece do
+      define_schemas :settings, {
+        middle_name: { type: :string }
+      }
+    end
+
+    # Redefine old schema
+    MockModel.fleece do
+      define_schemas :settings, {
+        location: { type: :string }
+      }
+    end
+
+    model.settings = { 'last_name' => 'Last name' }
+
+    expect(model.valid?).to eq(false)
+    expect(model.errors.messages[:settings].count).to eq(2)
+    expect(MockModel.fleece_context.schemas[:settings][:first_name].types).to eq([GoldenFleece::Definitions::TYPES[:string]])
+    expect(MockModel.fleece_context.schemas[:settings][:middle_name].types).to eq([GoldenFleece::Definitions::TYPES[:string]])
+    expect(MockModel.fleece_context.schemas[:settings][:location].types).to eq([GoldenFleece::Definitions::TYPES[:string]])
+  end
 end
