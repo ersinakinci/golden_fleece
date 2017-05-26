@@ -178,6 +178,25 @@ person.profile['zip_code'] = 90210
 person.zip_code            # '2b02dbc1030b278245b2b9cb11667eebf7275a52'
 ```
 
+Be careful! Normalizers can change your data when saving your record. Make sure your normalizer doesn't make invalid assumptions about types, etc.:
+
+```ruby
+define_normalizers({
+  csv_to_array: -> record, value { value.to_s.split(/\s*,\s*/) }
+})
+
+define_schemas :settings, {
+  important_ids: { type: :array, normalizer: :csv_to_array }
+}
+
+define_getters :settings
+
+person.profile['important_ids'] = '1001, 1002,1003'
+person.important_ids # [1001, 1002, 1003] (as expected)
+person.save          # normalizer persists the array in place of the CSV string
+person.important_ids # [0, 1002, 1003] (not expected! normalizer is trying to convert your array to a string, then splitting it on commas)
+```
+
 ### Formats
 
 Formats are Procs that can be used to enforce complex validations:

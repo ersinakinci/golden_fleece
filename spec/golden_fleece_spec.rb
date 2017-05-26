@@ -314,7 +314,7 @@ RSpec.describe GoldenFleece do
   it 'normalizes values using normalizer (single)' do
     MockModel.fleece do
       define_normalizers({
-        csv_to_array: -> record, value { value.to_s.split(/\s*,\s*/) }
+        csv_to_array: -> record, value { value.is_a?(String) ? value.split(/\s*,\s*/) : value }
       })
       define_schemas :settings, {
         important_ids: { type: :array, normalizer: :csv_to_array }
@@ -334,7 +334,7 @@ RSpec.describe GoldenFleece do
   it 'normalizes values using normalizers (multiple)' do
     MockModel.fleece do
       define_normalizers({
-        csv_to_array: -> record, value { value.to_s.split(/\s*,\s*/) },
+        csv_to_array: -> record, value { value.is_a?(String) ? value.split(/\s*,\s*/) : value },
         integer_array: -> record, value { Array.wrap(value).map { |e| e.to_i } }
       })
       define_schemas :settings, {
