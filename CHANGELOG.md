@@ -21,4 +21,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Specs
 
 [Unreleased]: https://github.com/earksiinni/golden_fleece/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/earksiinni/golden_fleece/compare/ad25a847b5678b1f3a6c1c0b6a986d784142d38f...v0.1.1
+[0.1.1]: https://github.com/earksiinni/golden_fleece/compare/v0.1.0...v0.1.1
