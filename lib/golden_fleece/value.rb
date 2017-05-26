@@ -7,33 +7,22 @@ module GoldenFleece
 
     def initialize(schema)
       @schema = schema
-      self.value_initialized = false
     end
 
     def compute(record)
       @record = record
+      @value = Hana::Pointer.new(schema.json_path).eval(record.read_attribute(schema.attribute))
 
-      if dirty?
-        @value = Hana::Pointer.new(schema.json_path).eval(record.read_attribute(schema.attribute))
-
-        cast_booleans
-        apply_normalizers
-        apply_default
-
-        self.value_initialized = true
-      end
+      cast_booleans
+      apply_normalizers
+      apply_default
 
       value
     end
 
     private
 
-    attr_accessor :value_initialized
     attr_reader :schema, :record, :value
-
-    def dirty?
-      record.send("#{schema.attribute}_changed?") || !value_initialized
-    end
 
     # Cast boolean values the way that Rails normally does on boolean columns
     def cast_booleans
