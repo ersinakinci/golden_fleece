@@ -284,17 +284,31 @@ RSpec.describe GoldenFleece do
   it 'casts boolean-ish values' do
     MockModel.fleece do
       define_schemas :settings, {
-        happy?: { type: :boolean }
+        happy?: { type: :boolean },
+        sad?: { type: :boolean },
+        real_happy?: { type: :boolean },
+        real_sad?: { type: :boolean },
       }
       define_getters :settings
     end
 
-    model.settings = { 'happy?' => '1' }
+    model.settings = {
+      'happy?' => '1',
+      'sad?' => 'false',
+      'real_happy?' => true,
+      'real_sad?' => false,
+    }
     model.save
 
     expect(model.valid?).to eq(true)
     expect(model.happy?).to eq(true)
+    expect(model.sad?).to eq(false)
+    expect(model.real_happy?).to eq(true)
+    expect(model.real_sad?).to eq(false)
     expect(model.settings['happy?']).to eq(true)
+    expect(model.settings['sad?']).to eq(false)
+    expect(model.settings['real_happy?']).to eq(true)
+    expect(model.settings['real_sad?']).to eq(false)
   end
 
   it 'normalizes values using normalizer (single)' do
