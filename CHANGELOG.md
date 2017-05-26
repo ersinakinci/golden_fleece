@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### [0.1.4] - 2017-05-26
+### Fixed
+- nil booleans values no longer casted into true under certain cases
+
 ### [0.1.3] - 2017-05-26
 ### Fixed
 - Remove caching from value computations, which didn't make sense because we were caching model instance values at the model class level.
@@ -31,7 +35,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Getters
 - Specs
 
-[Unreleased]: https://github.com/earksiinni/golden_fleece/compare/v0.1.3...HEAD
-[0.1.2]: https://github.com/earksiinni/golden_fleece/compare/v0.1.2...v0.1.3
+[Unreleased]: https://github.com/earksiinni/golden_fleece/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/earksiinni/golden_fleece/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/earksiinni/golden_fleece/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/earksiinni/golden_fleece/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/earksiinni/golden_fleece/compare/v0.1.0...v0.1.1
