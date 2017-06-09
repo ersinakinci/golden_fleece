@@ -26,5 +26,12 @@ module GoldenFleece
         memo
       }
     end
+
+    def deep_symbolize_keys(hash)
+      hash.reduce({}) { |memo, (key, value)|
+        memo[key.to_sym] = value.is_a?(Hash) ? deep_symbolize_keys(value) : value
+        memo
+      }
+    end
   end
 end

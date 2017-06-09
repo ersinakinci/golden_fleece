@@ -51,7 +51,7 @@ module GoldenFleece
           schema.default
         end
       else
-        value
+        value.is_a?(Hash) ? deep_symbolize_keys(value) : value
       end
     end
   end
