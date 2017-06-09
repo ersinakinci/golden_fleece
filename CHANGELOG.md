@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### [0.1.5] - 2017-06-09
+### Fixed
+- Subschema defaults no longer ignored in corner cases
+- Consistently symbolize all keys for `export_fleece`
+
 ### [0.1.4] - 2017-05-26
 ### Fixed
 - nil booleans values no longer casted into true under certain cases
@@ -35,7 +40,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Getters
 - Specs
 
-[Unreleased]: https://github.com/earksiinni/golden_fleece/compare/v0.1.4...HEAD
+[Unreleased]: https://github.com/earksiinni/golden_fleece/compare/v0.1.5...HEAD
+[0.1.5]: https://github.com/earksiinni/golden_fleece/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/earksiinni/golden_fleece/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/earksiinni/golden_fleece/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/earksiinni/golden_fleece/compare/v0.1.1...v0.1.2
