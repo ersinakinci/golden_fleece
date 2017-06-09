@@ -392,4 +392,23 @@ RSpec.describe GoldenFleece do
     expect(MockModel.fleece_context.schemas[:settings][:middle_name].types).to eq([GoldenFleece::Definitions::TYPES[:string]])
     expect(MockModel.fleece_context.schemas[:settings][:location].types).to eq([GoldenFleece::Definitions::TYPES[:string]])
   end
+
+  it 'exports defaults within nested schemas that already have a corresponding partially-complete persisted JSON object' do
+    MockModel.fleece do
+      define_schemas :settings, {
+        location: { type: :object, subschemas: {
+          zip_code: { type: :string },
+          address: { type: :string, default: '123 Default St.' }
+        } }
+      }
+    end
+
+    # Note that the address isn't persisted, but the default address should be
+    # merged into the persisted JSON, appearing in the exported hash
+    model.settings = { 'location' => { 'zip_code' => '12345' } }
+    model.save
+
+    expect(model.export_fleece[:settings][:location][:zip_code]).to eq('12345')
+    expect(model.export_fleece[:settings][:location][:address]).to eq('123 Default St.')
+  end
 end

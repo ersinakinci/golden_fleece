@@ -38,7 +38,7 @@ module GoldenFleece
     # If there's a persisted value, use that
     # If not, use the default value; if the default is a lambda, call it
     def apply_default
-      @value = if value.nil?
+      @value = if value.nil? || schema.parent?
         if schema.parent?
           d = schema.reduce({}) { |memo, (subschema_name, subschema)|
             memo[subschema_name] = subschema.value.compute(record)
