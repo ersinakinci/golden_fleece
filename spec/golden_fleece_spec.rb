@@ -273,9 +273,9 @@ RSpec.describe GoldenFleece do
       [
         :settings,
         {
-          first_name: 'Someone',
-          last_name: 'Else',
-          location: { city: 'San Fransokyo' }
+          'first_name' => 'Someone',
+          'last_name' => 'Else',
+          'location' => { 'city' => 'San Fransokyo' }
         }
       ]
     )
@@ -408,7 +408,45 @@ RSpec.describe GoldenFleece do
     model.settings = { 'location' => { 'zip_code' => '12345' } }
     model.save
 
-    expect(model.export_fleece[:settings][:location][:zip_code]).to eq('12345')
-    expect(model.export_fleece[:settings][:location][:address]).to eq('123 Default St.')
+    expect(model.export_fleece[:settings]['location']['zip_code']).to eq('12345')
+    expect(model.export_fleece[:settings]['location']['address']).to eq('123 Default St.')
+  end
+
+  it 'expects all exported keys to be strings' do
+    MockModel.fleece do
+      define_schemas :settings, {
+        location: { type: :object, subschemas: {
+          zip_code: { type: :string },
+          address: { type: :string, default: '123 Default St.' }
+        } }
+      }
+    end
+
+    expect(model.export_fleece[:settings]).to include('location')
+    expect(model.export_fleece[:settings]['location']).to include('zip_code')
+    expect(model.export_fleece[:settings]['location']).to include('address')
+  end
+
+  it 'allows defining schema with strings' do
+    MockModel.fleece do
+      define_schemas :settings, {
+        '2legit2quit' => { type: :object, subschemas: {
+          '3togetready' => { type: :string },
+          '4togo' => { type: :string, default: 'hi' }
+        } }
+      }
+    end
+
+    expect(model.export_fleece).to contain_exactly(
+      [
+        :settings,
+        {
+          '2legit2quit' => {
+            '3togetready' => nil,
+            '4togo' => 'hi'
+          }
+        }
+      ]
+    )
   end
 end

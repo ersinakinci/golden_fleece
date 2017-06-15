@@ -7,7 +7,7 @@ module GoldenFleece
         schemas.reduce({}) { |memo, (attribute, schema)|
           if export_attributes.include? attribute
             memo[attribute] = schema.reduce({}) { |memo, (schema_name, schema)|
-              memo[schema_name] = schema.value.compute(record)
+              memo[schema_name.to_s] = schema.value.compute(record)
               memo
             }
           end

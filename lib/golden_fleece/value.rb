@@ -41,7 +41,7 @@ module GoldenFleece
       @value = if value.nil? || schema.parent?
         if schema.parent?
           d = schema.reduce({}) { |memo, (subschema_name, subschema)|
-            memo[subschema_name] = subschema.value.compute(record)
+            memo[subschema_name.to_s] = subschema.value.compute(record)
             memo
           }
           d.values.compact.empty? ? nil : d
@@ -51,7 +51,7 @@ module GoldenFleece
           schema.default
         end
       else
-        value.is_a?(Hash) ? deep_symbolize_keys(value) : value
+        value.is_a?(Hash) ? deep_stringify_keys(value) : value
       end
     end
   end
