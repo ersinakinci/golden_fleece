@@ -38,7 +38,7 @@ end
 person.profile['first_name'] = 'Jane'
 person.profile['last_name'] = nil
 person.valid?        # true
-person.export_fleece # { profile: { first_name: 'Jane', last_name: nil, zip_code: '90210' } }
+person.export_fleece # { profile: { 'first_name' => 'Jane', 'last_name' => nil, 'zip_code' => '90210' } }
 
 person.profile.delete 'first_name'
 person.valid? # false
@@ -105,7 +105,7 @@ define_schemas :profile, {
 
 person.profile['zip_code'] = nil
 person.valid?              # true
-person.export_fleece       # { profile: { zip_code: '90210' } }
+person.export_fleece       # { profile: { 'zip_code' => '90210' } }
 person.profile['zip_code'] # nil
 ```
 
@@ -116,7 +116,7 @@ define_schemas :profile, {
   zip_code: { type: :string, default: -> record { record.closest_location.zip_code } }
 }
 
-person.export_fleece # { profile: { zip_code: '94131' } }
+person.export_fleece # { profile: { 'zip_code' => '94131' } }
 ```
 
 ### Getters
