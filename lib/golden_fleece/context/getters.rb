@@ -7,7 +7,7 @@ module GoldenFleece
           # ...and each top-level schema of each attribute...
           schemas[attribute.to_sym].each do |schema_name, schema|
             # ...if there isn't already an instance method named after the schema...
-            if !model_class.new.respond_to?(schema_name)
+            if !model_class.method_defined?(schema_name)
               # ...define a getter for that schema's value!
               model_class.class_eval do
                 define_method schema_name do
