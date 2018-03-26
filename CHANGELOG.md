@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+### [1.0.1] - 2018-03-26
+### Fixed
+- Avoid unnecessary DB connection when generating model getters (https://github.com/earksiinni/golden_fleece/pull/1)
+
 ### [1.0.0] - 2017-06-15
 ### Changed
 - Consistently stringify all keys for `export_fleece` except for top-level column keys
@@ -44,7 +49,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Getters
 - Specs
 
-[Unreleased]: https://github.com/earksiinni/golden_fleece/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/earksiinni/golden_fleece/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/earksiinni/golden_fleece/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/earksiinni/golden_fleece/compare/v0.1.5...v1.0.0
 [0.1.5]: https://github.com/earksiinni/golden_fleece/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/earksiinni/golden_fleece/compare/v0.1.3...v0.1.4
